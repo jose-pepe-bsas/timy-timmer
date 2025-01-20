@@ -121,6 +121,9 @@ def personal_daily_timing(start_time, end_time):
 def getById(theId,table):
     return db.table(table).get(Query().id==theId)
 
+def getBooksForDay(day=_get_date_today()):
+    return db.table('book').search(Query().day==day)
+
 @click.group()
 def cli():
     """Command-line interface for schedule management"""
@@ -153,13 +156,20 @@ def avt():
               help='When you want to use this book of time? (optional)', 
               prompt='What day this book is for', required=False)
 def book(from_time, to, x, day):
+    """Book a time block into a day"""
     id_book = time_booking(from_time, to, x, day)
     print(str(getById(id_book,'book')))
+
+@click.command()
+def books():
+    """Know your day's time books"""
+    print(str(getBooksForDay()).removeprefix("[{").removesuffix("}]").replace('{','\n').replace("},","\n"))
 
 
 cli.add_command(day)
 cli.add_command(avt)
 cli.add_command(book)
+cli.add_command(books)
 
 if __name__ == "__main__":
     cli()
