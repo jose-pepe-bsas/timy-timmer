@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "timer"
+name = "timy"
 version = "0.1.0"
-description = ""
+description = "A jose's timing tool for timy (his productive version)!"
 authors = ["jose <jose.s.contacto@gmail.com>"]
 readme = "README.md"
 
